@@ -1,0 +1,64 @@
+package controle;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+import visualizacao.EntradaSaida;
+import modelo.*;
+
+	public class Controladora {
+		
+		private Casa casa = null;
+		
+		public void exibeMenu() {
+			int opcao;
+			do {
+				opcao = EntradaSaida.solicitaOpcao();
+				
+				switch(opcao) {
+					case 0:
+						this.casa = new Casa();
+						String descricao = EntradaSaida.solicitaDescricao("casa", 0);
+						String cor = EntradaSaida.solicitaCor();
+						int quantidadeDePortas = EntradaSaida.solicitaQuantidadeDeAberturas("portas");
+						int quantidadeDeJanelas = EntradaSaida.solicitaQuantidadeDeAberturas("janelas");
+						
+						ArrayList<Aberturas> listaDePortas = new ArrayList<Aberturas>();
+						
+						for (int i=0; i<quantidadeDePortas; i++) {
+							Porta porta = new Porta();
+							porta.setDescricao(EntradaSaida.solicitaDescricao("porta", (i+1)));
+							porta.setEstado(EntradaSaida.solicitaEstado("porta"));
+							listaDePortas.add(porta);
+						}
+						
+						ArrayList<Aberturas> listaDeJanelas = new ArrayList<Aberturas>();
+						
+						for (int i=0; i<quantidadeDeJanelas; i++) {
+							Janela janela = new Janela();
+							janela.setDescricao(EntradaSaida.solicitaDescricao("janela", (i+1)));
+							janela.setEstado(EntradaSaida.solicitaEstado("janela"));
+							listaDeJanelas.add(janela);
+						}
+						
+						JOptionPane.showMessageDialog(null, "Construir casa");
+						
+						this.casa.constroiCasa(descricao, cor, listaDePortas, listaDeJanelas );
+						
+					break;
+				
+					case 1:
+						JOptionPane.showMessageDialog(null, "Movimentar portas ou janelas");
+					break;
+					
+					case 2:
+						JOptionPane.showMessageDialog(null, "Ver informações da casa");
+					break;
+				}
+			}while (opcao != 3);
+			
+			EntradaSaida.exibeMsgEncerraPrograma();
+			
+			System.exit(0);
+		}
+
+}

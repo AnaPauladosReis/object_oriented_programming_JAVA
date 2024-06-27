@@ -1,0 +1,35 @@
+package modelo;
+
+import java.util.ArrayList;
+
+public class Fabrica {
+    private ArrayList<Carro> carros;
+
+    public Fabrica() {
+        carros = new ArrayList<>();
+    }
+
+    public void fabricarCarro(Carro carro) {
+        carros.add(carro);
+    }
+
+    public void venderCarro() {
+        if (!carros.isEmpty()) {
+            carros.remove(0);
+            System.out.println("Carro vendido com sucesso!");
+        } else {
+            System.out.println("Não há carros para vender.");
+        }
+    }
+
+    public void verInformacoesCarros() {
+        if (!carros.isEmpty()) {
+            System.out.println("Informações dos carros:");
+            for (Carro carro : carros) {
+                System.out.println("Modelo: " + carro.getModelo() + ", Cor: " + carro.getCor());
+            }
+        } else {
+            System.out.println("Não há carros para mostrar informações.");
+        }
+    }
+}

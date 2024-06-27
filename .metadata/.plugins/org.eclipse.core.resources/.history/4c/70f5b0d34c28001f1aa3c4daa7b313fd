@@ -1,0 +1,96 @@
+package modelo;
+
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+public class ProdutoEstocado {
+    private static ArrayList<Produto> produtos = new ArrayList<>();
+
+    public static void adicionarProdutoAoEstoque(int quantidade, Produto produto) {
+        if (!produtos.contains(produto)) {
+            produtos.add(produto);
+        }
+
+        produto.setQuantidade(quantidade + produto.getQuantidade());
+    }
+
+    public static String listarProdutosEstoque() {
+        String lista = "💖 Produto | Valor | Quantidade 💖";
+
+        for (Produto produto : produtos) {
+            lista += "\n" + produto.getDescricao() + " | " + String.format("%.2f", produto.getPreco()) + " | "
+                    + produto.getQuantidade();
+        }
+
+        return lista;
+    }
+
+    public static void venderProdutoEstoque(int indiceProduto, int quantidade) {
+
+        double valor = 0;
+        Produto produtoParaVender = produtos.get(indiceProduto); 
+        if (produtoParaVender.getQuantidade() - quantidade < 0) {
+            JOptionPane.showMessageDialog(null, "🥺 Você não possui quantidade suficiente desse " +
+                    "produto para vender!");
+           return;
+        } else if (produtoParaVender.getQuantidade() - quantidade == 0) {
+            produtoParaVender.setQuantidade(0);
+            produtos.remove(indiceProduto);
+        } else {
+            produtoParaVender.setQuantidade(produtoParaVender.getQuantidade() - quantidade);
+        }
+
+        valor = produtoParaVender.getPreco() * quantidade;
+
+        ListaCupomFiscal.criarCupomFiscal(produtoParaVender.getDescricao(), produtoParaVender.getPreco(), valor, quantidade);
+        
+    }
+
+    public static boolean verificarProdutosEstoqueVazios() {
+        return produtos.isEmpty();
+    }
+
+    public static String[] criarMenuProdutosEstoque(){
+        String[] opcoesMenu = new String[produtos.size()];
+
+        for (Produto produto : produtos) {
+            opcoesMenu[produtos.indexOf(produto)] = produto.getDescricao() + " | " + String.format("%.2f",produto.getPreco()) + " | " +
+                    produto.getQuantidade();
+        }
+        return opcoesMenu;
+    }
+    
+    // CRUD para Estoque
+    public static void removerProdutoDoEstoque(String id) {
+        Produto produtoRemover = null;
+        for (Produto produto : produtos) {
+            if (produto.getId().equals(id)) {
+                produtoRemover = produto;
+                break;
+            }
+        }
+        if (produtoRemover != null) {
+            produtos.remove(produtoRemover);
+            JOptionPane.showMessageDialog(null, "💖 Produto removido do estoque com sucesso! 💖");
+        } else {
+            JOptionPane.showMessageDialog(null, "🥺 Produto não encontrado no estoque.");
+        }
+    }
+
+    public static void atualizarProdutoNoEstoque(String id, int novaQuantidade) {
+        Produto produtoAtualizar = null;
+        for (Produto produto : produtos) {
+            if (produto.getId().equals(id)) {
+                produtoAtualizar = produto;
+                break;
+            }
+        }
+        if (produtoAtualizar != null) {
+            produtoAtualizar.setQuantidade(novaQuantidade);
+            JOptionPane.showMessageDialog(null, "💖 Produto atualizado no estoque com sucesso! 💖");
+        } else {
+            JOptionPane.showMessageDialog(null, "🥺 Produto não encontrado no estoque.");
+        }
+    }
+}

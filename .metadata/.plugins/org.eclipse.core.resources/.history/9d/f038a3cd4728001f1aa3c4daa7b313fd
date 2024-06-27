@@ -1,0 +1,120 @@
+package controladora;
+
+import modelo.ProdutoEstocado;
+import modelo.CupomFiscal;
+import modelo.ListaCupomFiscal;
+import modelo.Produto;
+import modelo.ProdutoRegistrado;
+import visualizacao.Entrada;
+import visualizacao.Saida;
+
+public class Controladora {
+
+    public static void mostrarMenu() {
+        int opcaoMenu = 0;
+
+        do {
+            String[] opcoes = {"💖 Registro de Produtos 💖", "📦 Estoque de Produtos 📦", "🧾 Cupons Fiscais 🧾", "👋 Sair do programa 👋"};
+            opcaoMenu = Entrada.solicitarMenu(opcoes, "💖 Material de construção 💖");
+            int opcaoSubMenu = Entrada.solicitarSubMenu(opcaoMenu);
+            switch (opcaoMenu) {
+                case 0: { // Registro de Produtos
+                    switch (opcaoSubMenu) {
+                        case 0: { // Registrar produtos
+                            int opcao = 0;
+                            do {
+                                String id = Entrada.solicitarIdProduto();
+                                while (ProdutoRegistrado.verificarIdExistente(id)) {
+                                    Saida.exibirIdJaExiste();
+                                    id = Entrada.solicitarIdProduto();
+                                }
+                                String descricao = Entrada.solicitarDescricaoProduto();
+                                double preco = Entrada.solicitarPrecoProduto();
+                                ProdutoRegistrado.registrarProduto(id, descricao, preco);
+                                opcao = Entrada.solicitarContinuarMenu("Continuar registrando produtos? 🥰");
+                            } while (opcao != 1);
+                            break;
+                        }
+                        case 1: { // Ver produtos registrados
+                            if (ProdutoRegistrado.verificarProdutosRegistradosVazios()) {
+                                Saida.exibirNaoTem("produtos registrados 🥺");
+                            } else {
+                                String lista = ProdutoRegistrado.listarProdutosRegistrados();
+                                Saida.exibirLista(lista);
+                            }
+                            break;
+                        }
+                        case 2: { // Voltar
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case 1: { // Estoque de Produtos
+                    switch (opcaoSubMenu) {
+                        case 0: { // Adicionar produtos ao estoque
+                            if (ProdutoRegistrado.verificarProdutosRegistradosVazios()) {
+                                Saida.exibirNaoTem("produtos registrados 🥺");
+                            } else {
+                                int opcao = 0;
+                                do {
+                                    String[] opcoesMenuProdutosRegistrados = ProdutoRegistrado.criarMenuProdutosRegistrados();
+                                    int indiceProduto = Entrada.solicitarProdutoParaVender(opcoesMenuProdutosRegistrados);
+                                    Produto produto = ProdutoRegistrado.getProdutoRegistrado().get(indiceProduto);
+                                    int quantidade = Entrada.solicitarQuantidadeProduto("adicionar ao estoque");
+                                    ProdutoEstocado.adicionarProdutoAoEstoque(quantidade, produto);
+                                    opcao = Entrada.solicitarContinuarMenu("Continuar adicionando produtos ao estoque? 🥰");
+                                } while (opcao != 1);
+                            }
+                            break;
+                        }
+                        case 1: { // Ver produtos no estoque
+                            if (ProdutoEstocado.verificarProdutosEstoqueVazios()) {
+                                Saida.exibirNaoTem("produtos no estoque 🥺");
+                            } else {
+                                String lista = ProdutoEstocado.listarProdutosEstoque();
+                                Saida.exibirLista(lista);
+                            }
+                            break;
+                        }
+                        case 2: { // Vender produtos
+                            if (ProdutoEstocado.verificarProdutosEstoqueVazios()) {
+                                Saida.exibirNaoTem("produtos no estoque 🥺");
+                            } else {
+                                String[] opcoesMenu = ProdutoEstocado.criarMenuProdutosEstoque();
+                                int indiceProduto = Entrada.solicitarMenu(opcoesMenu, "💖 Vender Produtos 💖");
+                                int quantidade = Entrada.solicitarQuantidadeProduto("vender");
+                                ProdutoEstocado.venderProdutoEstoque(indiceProduto, quantidade);
+                                Saida.exibirCupomFiscal(ListaCupomFiscal.cuponsFiscais.get((ListaCupomFiscal.cuponsFiscais.size() - 1)));
+                            }
+                            break;
+                        }
+                        case 3: { // Voltar
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case 2: { // Cupons Fiscais
+                    if (ListaCupomFiscal.cuponsFiscais.isEmpty()) {
+                        Saida.exibirNaoTem("cupons fiscais 🥺");
+                    } else {
+                        String lista = "💖 Data | Produto | Valor do Produto | Quantidade | Valor Total 💖";
+                        for (CupomFiscal cupomFiscal : ListaCupomFiscal.cuponsFiscais) {
+                            lista += "\n" + cupomFiscal.getDate() + " | " + cupomFiscal.getProductDescription() + " | " + String.format("%.2f", cupomFiscal.getProductValue())
+                                    + " | " + cupomFiscal.getProductQuantity() + " | " + String.format("%.2f", cupomFiscal.getValue());
+                        }
+                        Saida.exibirLista(lista);
+                    }
+                    break;
+                }
+                case 3: { // Sair do programa
+                    Saida.exibirFimPrograma();
+                    System.exit(0);
+                    break;
+                }
+            }
+
+        } while (opcaoMenu != 3);
+    }
+}

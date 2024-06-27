@@ -1,0 +1,14 @@
+ import javax.swing.JOptionPane;
+
+	public class EntradaSaida {
+
+	    // Método estático para solicitar o modelo do veículo.
+	    public static String solicitarModelo() {
+	        return JOptionPane.showInputDialog("Digite o modelo do veículo:");
+	    }
+
+	    // Método estático para solicitar a cor do veículo.
+	    public static String solicitarCor() {
+	        return JOptionPane.showInputDialog("Digite a cor do veículo:");
+	    }
+	}

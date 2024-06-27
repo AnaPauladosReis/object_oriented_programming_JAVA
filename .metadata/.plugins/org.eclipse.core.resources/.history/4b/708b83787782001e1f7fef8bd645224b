@@ -1,0 +1,11 @@
+public class Principal {
+    // Atributos públicos da classe Carro
+    public String modelo;
+    public String cor;
+
+    // Construtor da classe
+    public Principal(String modelo, String cor) {
+        modelo = modelo;
+        cor = cor;
+    }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="modelo.Divisao"/>
+    <fullyQualifiedTypeName name="modelo.IOperacao"/>
+    <fullyQualifiedTypeName name="modelo.Multiplicacao"/>
+    <fullyQualifiedTypeName name="modelo.Operacoes"/>
+    <fullyQualifiedTypeName name="modelo.Soma"/>
+    <fullyQualifiedTypeName name="modelo.Subtracao"/>
+    <fullyQualifiedTypeName name="modelo.CarroBase"/>
+    <fullyQualifiedTypeName name="modelo.CarroEsportivo"/>
+    <fullyQualifiedTypeName name="modelo.Aberturas"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="view.EntradaSaida"/>
+    <fullyQualifiedTypeName name="controladora.Controladora"/>
+    <fullyQualifiedTypeName name="modelo.Carro"/>
+    <fullyQualifiedTypeName name="modelo.Fabrica"/>
+    <fullyQualifiedTypeName name="visualizacao.EntradaSaida"/>
+    <fullyQualifiedTypeName name="java.time.OffsetDateTime"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="modelo.ProdutoRegistrado"/>
+    <fullyQualifiedTypeName name="visualizacao.Saida"/>
+    <fullyQualifiedTypeName name="modelo.Produto"/>
+    <fullyQualifiedTypeName name="modelo.ProdutoEstocado"/>
+    <fullyQualifiedTypeName name="modelo.CupomFiscal"/>
+    <fullyQualifiedTypeName name="modelo.ListaCupomFiscal"/>
+    <fullyQualifiedTypeName name="visualizacao.Entrada"/>
+</qualifiedTypeNameHistroy>

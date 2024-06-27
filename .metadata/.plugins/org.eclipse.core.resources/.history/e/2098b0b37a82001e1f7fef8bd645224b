@@ -1,0 +1,15 @@
+import javax.swing.JOptionPane;
+
+public class Principal {
+    public static void main(String[] args) {
+        // Solicitar o modelo e a cor usando os métodos da classe EntradaSaida
+        String modelo = EntradaSaida.solicitarModelo();
+        String cor = EntradaSaida.solicitarCor();
+
+        // Criar uma instância da classe Carro com os dados inseridos pelo usuário
+        Carro meuCarro = new Carro(modelo, cor);
+
+        // Exibir o resultado usando JOptionPane
+        JOptionPane.showMessageDialog(null, "Modelo: " + meuCarro.modelo + "\nCor: " + meuCarro.cor);
+    }
+}
